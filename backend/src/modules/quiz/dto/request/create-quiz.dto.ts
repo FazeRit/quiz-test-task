@@ -5,45 +5,45 @@ import {
   IsInt,
   IsString,
   Min,
-  ValidateNested,
+  ValidateNested
 } from 'class-validator';
 import { QuestionType } from '@prisma/client';
 import { Type } from 'class-transformer';
 
 export class CreateQuizDto {
   @IsString()
-  title: string;
+  public title: string = '';
 
   @IsString()
-  description?: string;
+  public description?: string;
 
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateQuestionDto)
-  questions: CreateQuestionDto[];
+  public questions: CreateQuestionDto[] = [];
 }
 
 export class CreateQuestionDto {
   @IsString()
-  text: string;
+  public text: string = '';
 
   @IsEnum(QuestionType)
-  type: QuestionType;
+  public type: QuestionType = QuestionType.MULTIPLE_CHOICE;
 
   @IsInt()
   @Min(1)
-  order: number;
+  public order: number = 1;
 
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateAnswerDto)
-  options: CreateAnswerDto[];
+  public options: CreateAnswerDto[] = [];
 }
 
 export class CreateAnswerDto {
   @IsString()
-  text: string;
+  public text: string = '';
 
   @IsBoolean()
-  isCorrect: boolean;
+  public isCorrect: boolean = false;
 }

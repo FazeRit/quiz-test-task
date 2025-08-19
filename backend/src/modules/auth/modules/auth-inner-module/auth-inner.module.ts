@@ -1,11 +1,10 @@
-import { Module } from '@nestjs/common';
 import { AuthFacadeService } from '../../services/auth-facade-service/auth-facade.service';
 import { AuthWriteController } from '../../controllers/auth-write-controller/auth-write.controller';
 import { AuthWriteService } from '../../services/auth-write-service/auth-write.service';
-import { UserModule } from 'src/modules/entities/user/user.module';
 import { JwtModule } from '../../../jwt/jwt.module';
-import { CustomJwtService } from '../../../jwt/services/jwt.service';
 import { JwtStrategy } from '../../strategies/jwt.strategy';
+import { Module } from '@nestjs/common';
+import { UserModule } from 'src/modules/entities/user/user.module';
 
 @Module({
   imports: [JwtModule, UserModule],
@@ -14,8 +13,7 @@ import { JwtStrategy } from '../../strategies/jwt.strategy';
     AuthWriteService,
     AuthFacadeService,
     JwtStrategy,
-    CustomJwtService,
   ],
-  exports: [AuthWriteService, AuthFacadeService, JwtStrategy, CustomJwtService],
+  exports: [AuthWriteService, AuthFacadeService, JwtStrategy],
 })
 export class AuthInnerModule {}
